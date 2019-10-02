@@ -1,2 +1,5 @@
+*.py[cod]
 data/
 .ipynb_checkpoints/
+__pycache__/
+jupyter_notebooks/__pycache__/

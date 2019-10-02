@@ -30,6 +30,7 @@ class Interface():
         self.classification_model_data = None
         self.eval_mode = eval_mode
         self.df_train, self.df_valid = None, None
+        self.data_list, self.dataset_name = [], [] #to store all individual df for individual model
 
     def _clean_non_json_path(self,path):
         filenames = []
@@ -115,14 +116,43 @@ class Interface():
         assert (type(split_point) == int)
         self.df_train, self.df_valid = total_filenames[:split_point],total_filenames[split_point:]
 
-    def pre_processing(self,skip_convert_json=False,test=False):
+    def _get_lm(self,url):
+        '''This code needs to be updated once I figure out how to host pretrained weights
+            for now, it will use local path
+        '''
+        if url:
+            data_lm = load_data(url,'data_lm_large.pkl',bs=self.bs)
+        return data_lm
+
+    def _get_individual_data(self,filepath,data_lm):
+        df = pd.read_csv(filepath)
+        if df.shape[0]*0.7 < self.bs:
+            bs = int(df.shape[0]*0.7)
+        else: bs=self.bs
+        data = (TextList
+                .from_df(df=df,path=self.csv_path,cols='Body',vocab=data_lm.vocab)
+                .split_by_rand_pct(0.3,seed=42)
+                .label_from_df(cols='Label')
+                .databunch(bs=bs,num_workers=os.cpu_count()*4)
+               )
+        return data
+
+
+    def pre_processing(self,skip_convert_json=False,test=False,**kwargs):
         if not self._check_data_format(): exit(0) #we can't handle non Basilica data
         if not skip_convert_json: self._convert_json_to_csv(test)
         if self.eval_mode:
-            #TODO: set data_lm_path
-            #      load data_lm vocab
-            #      create individual classification data bunch using data_lm vocab
-            pass
+            if 'lm_path' in kwargs.keys():
+                lm_path = kwargs['lm_path']
+            else:
+                print('Evaluation mode: lm_path not set...')
+                exit(0)
+            data_lm = self._get_lm(lm_path)
+            for file in self.csv_path.ls():
+                file_extension = Path(file).name.split('.')
+                if len(file_extension) < 2 or file_extension[1] != 'csv': continue
+                self.data_list.append(self._get_individual_data(file,data_lm))
+                self.dataset_name.append(file_extension[0])
         else:
             '''
             Getting language model data bunch
@@ -132,7 +162,7 @@ class Interface():
             #Spacy Tokenization,pre_rules, post_rules applied,Numericalization
             #create fastai databunch, which is a pair of train, valid dataloader of Pytorch
             self.language_model_data = (TextList
-                                        .from_df(df_total,path=path)
+                                        .from_df(df_total,path=self.csv_path)
                                         .split_by_rand_pct(0.1)
                                         .label_for_lm()
                                         .databunch(bs=self.bs,num_workers=16)

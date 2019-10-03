@@ -4,9 +4,9 @@
 #################################################
 # file to edit: jupyter_notebooks/Test_trainer.ipynb
 
-from uti.interface import *
+from clasi_user.interface import *
 
-class Train():
+class Trainer():
     '''Take interface, which is preprocessed data
         create learner base on the data
         save the model in the dest

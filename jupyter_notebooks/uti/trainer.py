@@ -6,7 +6,7 @@
 
 from uti.interface import *
 
-class Train():
+class Trainer():
     '''Take interface, which is preprocessed data
         create learner base on the data
         save the model in the dest

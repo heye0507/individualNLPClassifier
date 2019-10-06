@@ -22,15 +22,17 @@ class Interface():
             and general classfier from scratch
         '''
         if not isinstance(path,(list,tuple)):
-            path = self._listify(path)     #if things are not iteratorable
-        self.path = self._clean_non_json_path(path) #remove non .json paths
+            path = self._listify(path)     # If things are not iteratorable
+        self.path = self._clean_non_json_path(path)    # Remove non .json paths
         self.csv_path = None
         self.bs = bs
         self.language_model_data = None
         self.classification_model_data = None
         self.eval_mode = eval_mode
-        self.df_train, self.df_valid = None, None
-        self.data_list, self.dataset_name = [], [] #to store all individual df for individual model
+        self.df_train = None
+        self.df_valid = None
+        self.data_list = []
+        self.dataset_name = []    # To store all individual df for individual model
 
     def _clean_non_json_path(self,path):
         filenames = []
@@ -83,16 +85,12 @@ class Interface():
             df = pd.DataFrame(list(zip(body, label, source)),
                              columns = ['Body', 'Label', 'Source'])
 
-            #check if the parent directory exists
-            if test:
-                if not os.path.exists(one_file_path.parent/'delete_test'):
-                    os.makedirs(one_file_path.parent/'delete_test')
-            else:
-                if not os.path.exists(one_file_path.parent/'csv'):
-                    os.makedirs(one_file_path.parent/'csv')
-
+            # check if the parent directory exists
             if test: dest = one_file_path.parent/'delete_test'
             else: dest = one_file_path.parent/'csv'
+                
+            if not os.path.exists(dest):
+                os.makedirs(dest)
             filename = Path(one_file_path.name).stem + '.csv'
             df.to_csv(dest/filename,index=False)
             print(f'convert {filename} to csv')
@@ -139,7 +137,7 @@ class Interface():
 
 
     def pre_processing(self,skip_convert_json=False,test=False,**kwargs):
-        if not self._check_data_format(): exit(0) #we can't handle non Basilica data
+        if not self._check_data_format(): exit(0) # Can't handle non Basilica data
         if not skip_convert_json: self._convert_json_to_csv(test)
         if self.eval_mode:
             if 'lm_path' in kwargs.keys():
@@ -154,10 +152,7 @@ class Interface():
                 self.data_list.append(self._get_individual_data(file,data_lm))
                 self.dataset_name.append(file_extension[0])
         else:
-            '''
-            Getting language model data bunch
-            Split general classifier train and valid
-            '''
+            # TODO: Train from scratch
             df_total = self._prepare_df()
             #Spacy Tokenization,pre_rules, post_rules applied,Numericalization
             #create fastai databunch, which is a pair of train, valid dataloader of Pytorch
@@ -169,5 +164,3 @@ class Interface():
                                         )
             #Split data for general classifier
             self._train_valid_split(self.csv_path)
-
-

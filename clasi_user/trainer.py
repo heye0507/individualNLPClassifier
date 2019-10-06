@@ -48,5 +48,3 @@ class Trainer():
                                     return_path=True, with_opt=False)
             print(f'Model saved at {model_path}')
             counter_to_print += 1
-#             print(f'Saving model to {self.dest}')
-#             print(f'model name: {self.interface.dataset_name[counter_to_print]}_{current_valid_score}')

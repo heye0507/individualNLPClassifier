@@ -1,5 +1,6 @@
-# Insight_Project_Framework
-Framework for machine learning projects at Insight Data Science.
+# Individual Level NLP Classifier
+Individual level NLP classifier is a consulting project worked with Basilica.ai. Basilica.ai is a B2B startup that providing sentiment as a service for social media companies. The goal is to have individual level classifiers so that companies can sort newly generated social media posts based on individual user interested.
+
 
 ## Motivation for this project format:
 - **Insight_Project_Framework** : Put all source code for production within structured directory

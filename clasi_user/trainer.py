@@ -11,17 +11,13 @@ class Trainer():
         create learner base on the data
         save the model in the dest
     '''
-    def __init__(self,data,pre_trained=True,model_dir=None):
+    def __init__(self,data,model_path,pre_trained=True,model_dir=None):
         self.interface = data
         self.pre_trained = pre_trained
         if not os.path.exists(self.interface.csv_path/'models'):
             os.makedirs(self.interface.csv_path/'models')
         self.dest = self.interface.csv_path/'models'
-        #hard code path, get url when host
-        #fix
-        #################
-        self.url = '/home/jupyter/insight_project/Project-M/data/preprocessed/csv/models/general-clasifier-0.84'
-        #################
+        self.url = model_path/'general-clasifier-0.84'
 
     def _create_leaner(self,one_data):
         learn = text_classifier_learner(one_data,AWD_LSTM,drop_mult=0.5,

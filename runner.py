@@ -31,7 +31,7 @@ if __name__ == "__main__":
     output_filepath = Path(args.input_file).ls()
     test = Interface(output_filepath,eval_mode=True)
     if args.lm_vocab_path:
-        test.pre_processing(test=True,lm_path=args.lm_vocab_path)
+        test.pre_processing(lm_path=args.lm_vocab_path)
     else:
         print('downloading vocab...')
         path = Path(args.input_file)/'models'
@@ -39,6 +39,6 @@ if __name__ == "__main__":
             os.makedirs(path)
         download_file_from_google_drive(data_lm_large_id,path/'data_lm_large.pkl')
         download_file_from_google_drive(model_id,path/'general-clasifier-0.84.pth')
-        test.pre_processing(test=True,lm_path=path)
+        test.pre_processing(lm_path=path)
     test_train = Trainer(test,path)
     test_train.train_individual_clasifier()

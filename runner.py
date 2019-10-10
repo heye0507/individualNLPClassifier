@@ -28,13 +28,13 @@ if __name__ == "__main__":
     )
 
     args = parser.parse_args()
-    output_filepath = Path(args.input_file).ls()
+    output_filepath = Path(os.getcwd()+'/'+args.input_file).ls()
     test = Interface(output_filepath,eval_mode=True)
     if args.lm_vocab_path:
         test.pre_processing(lm_path=args.lm_vocab_path)
     else:
         print('downloading vocab...')
-        path = Path(args.input_file)/'models'
+        path = Path(os.getcwd()+'/'+args.input_file)/'models'
         if not os.path.exists(path):
             os.makedirs(path)
         download_file_from_google_drive(data_lm_large_id,path/'data_lm_large.pkl')

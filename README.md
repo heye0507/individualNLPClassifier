@@ -1,7 +1,7 @@
 # Individual Level NLP Classifier
 Individual level NLP classifier is a consulting project worked with Basilica.ai. Basilica.ai is a B2B startup that providing sentiment as a service for social media companies. The goal is to have individual level classifiers so that companies can sort newly generated social media posts based on individual user interested.
 
-[Here] (https://docs.google.com/presentation/d/1sYz4yeRL0rFM4c1ScgJoM6id3RIu6Fh1wfRQ1_rghFA/edit#slide=id.p) are the slides for the project
+[Here](https://docs.google.com/presentation/d/1sYz4yeRL0rFM4c1ScgJoM6id3RIu6Fh1wfRQ1_rghFA/edit#slide=id.p) are the slides for the project
 
 
 ## Motivation for this project format:

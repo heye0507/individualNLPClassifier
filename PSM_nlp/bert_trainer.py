@@ -11,7 +11,7 @@ from pytorch_pretrained_bert.modeling import BertConfig, BertForSequenceClassifi
 class BERT_Trainer(Trainer):
     def __init__(self, bert_interface, model='bert-base-uncased', num_labels=2):
         self.model = BertForSequenceClassification.from_pretrained(model, num_labels)
-        super().__init__(bert_interface)
+        super().__init__(bert_interface,Path('.'))
 
     def _create_leaner(self, data):
         learn = Learner(data, self.model,

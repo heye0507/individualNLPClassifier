@@ -4,7 +4,7 @@
 #################################################
 # file to edit: jupyter_notebooks/Test_trainer.ipynb
 
-from clasi_user.interface import *
+from PSM_nlp.interface import *
 
 class Trainer():
     '''Take interface, which is preprocessed data

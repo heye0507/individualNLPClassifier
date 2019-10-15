@@ -4,8 +4,8 @@
 #################################################
 # file to edit: jupyter_notebooks/Test_BERT_Trainer.ipynb
 
-from uti.bert_interface import *
-from uti.trainer import *
+from PSM_nlp.bert_interface import *
+from PSM_nlp.trainer import *
 from pytorch_pretrained_bert.modeling import BertConfig, BertForSequenceClassification
 
 class BERT_Trainer(Trainer):

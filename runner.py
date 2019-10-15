@@ -1,8 +1,8 @@
 #! /usr/bin/env python3
 # coding: utf-8
 
-from clasi_user.trainer import *
-from clasi_user.downloader import *
+from PSM_nlp.trainer import *
+from PSM_nlp.downloader import *
 import os
 import argparse
 

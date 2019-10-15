@@ -4,7 +4,7 @@
 #################################################
 # file to edit: jupyter_notebooks/Test_BERT.ipynb
 
-from uti.interface import *
+from PSM_nlp.interface import *
 from pytorch_pretrained_bert import BertTokenizer
 
 class FastaiBertTokenizer(BaseTokenizer):

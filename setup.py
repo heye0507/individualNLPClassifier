@@ -2,7 +2,7 @@
 from setuptools import setup, find_packages
 
 setup(name='runner',
-    version='0.1',
+    version='0.2',
     description='Build individual NLP classifier for Basilica',
     author='Hao He',
     author_email='heye0507@gmail.com',

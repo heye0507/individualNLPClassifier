@@ -47,8 +47,6 @@ python3 setup.py build
 
 import PSM_nlp
 import os
-from PSM_nlp.interface import *
-from PSM_nlp.trainer import *
 from PSM_nlp.bert_interface import *
 from PSM_nlp.bert_trainer import *
 
@@ -62,12 +60,17 @@ bert_trainer.train_individual_clasifier()
 
 
 ### For AWD_LSTM model ###
-
+import PSM_nlp
+import os
+from PSM_nlp.interface import *
+from PSM_nlp.trainer import *
 from PSM_nlp.downloader import *
+
+path = Path(os.getcwd() + '/demo_data')
 download_file_from_google_drive(data_lm_large_id,path/'data_lm_large.pkl')
 download_file_from_google_drive(model_id,path/'general-clasifier-0.84.pth')
 
-path = Path(os.getcwd() + '/demo_data')
+
 interface = Interface(path.ls(),eval_mode=True)
 model_path = path/'models'
 interface.pre_processing(lm_path=model_path) 

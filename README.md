@@ -15,7 +15,7 @@ Clone repository and update python path
 ```
 cd ~
 git clone https://github.com/heye0507/individualNLPClassifier.git
-cd /individualNLPClassifier
+cd individualNLPClassifier/
 docker build -t nlp_classifier .
 docker run -it nlp_classifier
 ```

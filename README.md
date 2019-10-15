@@ -88,7 +88,7 @@ trainer.train_individual_clasifier()
 - The dataset should be in JSON format
 - Each JSON file is an object with the fields id, num_data_points, and data_points. data_points is an array of objects with the fields body, embedding, and source. body is the original text of the message. source is the site the message came from. embedding is the embedding produced language model (For non-Basilica dataset, simply make it empty list [])
 
-## Further Work
+## Future Work
 - Intergrate AWD_LSTM language model fine-tuning API. 
 - Intergrate BERT language model fine-tuning API.
 

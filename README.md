@@ -6,7 +6,7 @@ Individual level NLP classifier is a consulting project worked with Basilica.ai.
 
 ## Project:
 
-- **clasi_user** : All source code for production within structured directory
+- **PSM_nlp** : All source code for production within structured directory
 
 - **demo_data** :  Sample data for demo purpose. It is one real dataset from Basilica and removed their feature embedding.
 

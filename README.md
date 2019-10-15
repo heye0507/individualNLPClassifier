@@ -10,6 +10,8 @@ Individual level NLP classifier is a consulting project worked with Basilica.ai.
 
 - **demo_data** :  Sample data for demo purpose. It is one real dataset from Basilica and removed their feature embedding.
 
+- **jupyter_notebooks** : Contains all the jupyter notebooks for building up this project, including EDA, ULMFit / BERT training and post PCA / Siamese network analysis
+
 ## Setup
 Clone repository and update python path
 ```
@@ -31,6 +33,48 @@ Run the following two lines for demo
 source activate nlp_model_gen
 python3 runner.py --input-file=demo_data/
 ```
+## Package
+
+PSM_nlp can be used as a python package
+
+PSM_nlp.interface and PSM_nlp.trainer contains AWD_LSTM pre-processing and training API
+PSM_nlp.bert_interface and PSM_npl.bert_trainer contains BERT pre-processing and training API
+
+Here is an example of how to build both trainer for BERT and AWD_LSTM trainer
+
+```
+python3 setup.py build
+
+import PSM_nlp
+import os
+from PSM_nlp.interface import *
+from PSM_nlp.trainer import *
+from PSM_nlp.bert_interface import *
+from PSM_nlp.bert_trainer import *
+
+path = Path(os.getcwd() + '/demo_data')
+bert_interface = BERT_Interface('bert-base-uncased', path.ls())
+bert_interface.pre_processing()
+bert_trainer = BERT_Trainer(bert_interface)
+
+### Please note you will need GPU to run the following line ###
+bert_trainer.train_individual_clasifier()
+
+
+### For AWD_LSTM model ###
+
+from PSM_nlp.downloader import *
+download_file_from_google_drive(data_lm_large_id,path/'data_lm_large.pkl')
+download_file_from_google_drive(model_id,path/'general-clasifier-0.84.pth')
+
+path = Path(os.getcwd() + '/demo_data')
+interface = Interface(path.ls(),eval_mode=True)
+model_path = path/'models'
+interface.pre_processing(lm_path=model_path) 
+trainer = Trainer(interface,model_path)
+trainer.train_individual_clasifier()
+```
+
 
 ## Model Apporach 
 - Baseline BERT, build classification head on BERT

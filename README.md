@@ -40,7 +40,7 @@ PSM_nlp can be used as a python package
 - PSM_nlp.bert_interface and PSM_npl.bert_trainer contains BERT pre-processing and training API
 - PSM_nlp.interface and PSM_nlp.trainer contains AWD_LSTM pre-processing and training API
 
-Here is an example of how to build both trainer for BERT and AWD_LSTM trainer
+Here is an example of how to build both trainer for BERT and AWD_LSTM
 
 ```
 python3 setup.py build
